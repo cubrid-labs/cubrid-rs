@@ -13,5 +13,6 @@ authors.workspace = true
 
 [dependencies]
 cubrid-protocol = { path = "../cubrid-protocol" }
+cubrid-client = { path = "../cubrid-client" }
 tokio.workspace = true
 thiserror.workspace = true

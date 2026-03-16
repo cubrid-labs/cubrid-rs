@@ -21,5 +21,5 @@ authors = ["cubrid-labs"]
 [workspace.dependencies]
 thiserror = "2"
 bytes = "1"
-tokio = { version = "1", features = ["net", "io-util", "rt", "macros", "sync", "time"] }
+tokio = { version = "1", features = ["net", "io-util", "rt", "rt-multi-thread", "macros", "sync", "time"] }
 tracing = "0.1"

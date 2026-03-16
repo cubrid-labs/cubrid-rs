@@ -16,3 +16,7 @@ cubrid-client = { path = "../cubrid-client" }
 cubrid-tokio = { path = "../cubrid-tokio" }
 tokio.workspace = true
 thiserror.workspace = true
+
+[dev-dependencies]
+cubrid-protocol = { path = "../cubrid-protocol" }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
