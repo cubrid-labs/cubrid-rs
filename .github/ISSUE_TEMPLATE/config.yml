@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: CUBRID Documentation
+    url: https://cubrid.org/documentation
+    about: Official CUBRID database documentation
+  - name: Rust Documentation
+    url: https://doc.rust-lang.org/book/
+    about: Official Rust language documentation
+  - name: cubrid-cookbook
+    url: https://github.com/cubrid-labs/cubrid-cookbook
+    about: Production-ready examples for CUBRID with popular frameworks

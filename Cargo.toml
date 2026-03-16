@@ -1,0 +1,25 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/cubrid-protocol",
+    "crates/cubrid-client",
+    "crates/cubrid-tokio",
+    "crates/cubrid-pool",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+license = "MIT"
+repository = "https://github.com/cubrid-labs/cubrid-rs"
+homepage = "https://github.com/cubrid-labs/cubrid-rs"
+keywords = ["cubrid", "database", "driver", "sql"]
+categories = ["database"]
+authors = ["cubrid-labs"]
+
+[workspace.dependencies]
+thiserror = "2"
+bytes = "1"
+tokio = { version = "1", features = ["net", "io-util", "rt", "macros", "sync", "time"] }
+tracing = "0.1"

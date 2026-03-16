@@ -1,0 +1,35 @@
+# cubrid-rs
+
+> Native Rust database driver for CUBRID. Provides both sync and async clients that speak the CAS wire protocol directly over TCP. No FFI, no C dependencies - pure Rust.
+
+cubrid-rs is a multi-crate Cargo workspace implementing the CUBRID CAS (Client Application Server) protocol in pure Rust. It provides `cubrid-client` (synchronous, std::net), `cubrid-tokio` (asynchronous, tokio), and `cubrid-pool` (connection pooling).
+
+Key facts:
+- DSN format: `cubrid://[user[:password]]@host[:port]/database`
+- Sync client: `cubrid-client` crate
+- Async client: `cubrid-tokio` crate
+- Connection pool: `cubrid-pool` crate
+- Protocol: `cubrid-protocol` crate (CAS wire protocol, I/O-agnostic)
+- Features: pure Rust, #![deny(unsafe_code)], no FFI, no C dependencies
+- Minimum Rust version: 1.70
+- Status: v0.1.0 (scaffold - protocol implementation in progress)
+
+## Docs
+
+- [README](https://github.com/cubrid-labs/cubrid-rs/blob/main/README.md): Full documentation
+- [PRD](https://github.com/cubrid-labs/cubrid-rs/blob/main/docs/PRD.md): Product requirements with Example-first Design Philosophy
+- [Architecture](https://github.com/cubrid-labs/cubrid-rs/blob/main/docs/ARCHITECTURE.md): Multi-crate workspace design
+- [Protocol Research](https://github.com/cubrid-labs/cubrid-rs/blob/main/docs/PROTOCOL_RESEARCH.md): CAS wire protocol specification
+
+## Examples
+
+- [Sync Client](https://github.com/cubrid-labs/cubrid-rs/blob/main/README.md#quick-start---sync-client): Synchronous database operations
+- [Async Client](https://github.com/cubrid-labs/cubrid-rs/blob/main/README.md#quick-start---async-client-tokio): Async database operations with tokio
+
+## Ecosystem
+
+- [pycubrid](https://github.com/cubrid-labs/pycubrid): Pure Python DB-API 2.0 driver
+- [cubrid-go](https://github.com/cubrid-labs/cubrid-go): Pure Go database/sql driver
+- [cubrid-client](https://github.com/cubrid-labs/cubrid-client): TypeScript CAS client
+- [cubrid-cookbook](https://github.com/cubrid-labs/cubrid-cookbook): Production-ready examples
+- [CUBRID](https://www.cubrid.org/): The CUBRID database

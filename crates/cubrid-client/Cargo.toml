@@ -1,0 +1,16 @@
+[package]
+name = "cubrid-client"
+description = "Synchronous CUBRID database client"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["cubrid", "database", "client", "sql"]
+categories = ["database"]
+authors.workspace = true
+
+[dependencies]
+cubrid-protocol = { path = "../cubrid-protocol" }
+thiserror.workspace = true

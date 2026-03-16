@@ -1,0 +1,17 @@
+[package]
+name = "cubrid-tokio"
+description = "Async CUBRID database client (tokio)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["cubrid", "database", "async", "tokio"]
+categories = ["database", "asynchronous"]
+authors.workspace = true
+
+[dependencies]
+cubrid-protocol = { path = "../cubrid-protocol" }
+tokio.workspace = true
+thiserror.workspace = true

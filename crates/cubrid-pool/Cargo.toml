@@ -1,0 +1,18 @@
+[package]
+name = "cubrid-pool"
+description = "Connection pool for CUBRID clients"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["cubrid", "database", "pool", "connection"]
+categories = ["database"]
+authors.workspace = true
+
+[dependencies]
+cubrid-client = { path = "../cubrid-client" }
+cubrid-tokio = { path = "../cubrid-tokio" }
+tokio.workspace = true
+thiserror.workspace = true
