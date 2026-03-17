@@ -47,7 +47,7 @@ cubrid-rs/
 
 | Package | Version | Purpose |
 |---|---|---|
-| Rust | >= 1.70 | Language/runtime baseline |
+| Rust | >= 1.75 | Language/runtime baseline |
 | thiserror | 2.x | Structured library error types |
 | bytes | 1.x | Binary protocol buffer handling |
 | tokio | 1.x | Async runtime for `cubrid-tokio` and pooling |

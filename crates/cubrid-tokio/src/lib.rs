@@ -197,8 +197,7 @@ impl Client {
         conn.send_framed(&req).await?;
         let resp = conn.recv_framed().await?;
 
-        let (result, new_cas_info) =
-            response::parse_prepare_and_execute(&resp, proto_version)?;
+        let (result, new_cas_info) = response::parse_prepare_and_execute(&resp, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         // Close the server-side query handle immediately
@@ -244,8 +243,7 @@ impl Client {
         conn.send_framed(&req).await?;
         let resp = conn.recv_framed().await?;
 
-        let (result, new_cas_info) =
-            response::parse_prepare_and_execute(&resp, proto_version)?;
+        let (result, new_cas_info) = response::parse_prepare_and_execute(&resp, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let query_handle = result.query_handle;
@@ -423,8 +421,7 @@ impl Client {
             conn.send_framed(&req).await?;
             let resp = conn.recv_framed().await?;
 
-            let (fetch_result, new_cas_info) =
-                response::parse_fetch(&resp, columns, stmt_type)?;
+            let (fetch_result, new_cas_info) = response::parse_fetch(&resp, columns, stmt_type)?;
             conn.set_cas_info(new_cas_info);
 
             if fetch_result.tuple_count == 0 {
@@ -476,12 +473,8 @@ impl Statement {
         conn.send_framed(&req).await?;
         let resp = conn.recv_framed().await?;
 
-        let (result, new_cas_info) = response::parse_execute(
-            &resp,
-            &self.columns,
-            self.statement_type,
-            proto_version,
-        )?;
+        let (result, new_cas_info) =
+            response::parse_execute(&resp, &self.columns, self.statement_type, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let mut affected: u64 = 0;
@@ -518,12 +511,8 @@ impl Statement {
         conn.send_framed(&req).await?;
         let resp = conn.recv_framed().await?;
 
-        let (result, new_cas_info) = response::parse_execute(
-            &resp,
-            &self.columns,
-            self.statement_type,
-            proto_version,
-        )?;
+        let (result, new_cas_info) =
+            response::parse_execute(&resp, &self.columns, self.statement_type, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let total_count = result.total_tuple_count;
@@ -531,13 +520,15 @@ impl Statement {
 
         // Fetch remaining rows
         if self.statement_type.is_select() && (all_rows.len() as i32) < total_count {
-            client.fetch_remaining(
-                self.query_handle,
-                &self.columns,
-                self.statement_type,
-                total_count,
-                &mut all_rows,
-            ).await?;
+            client
+                .fetch_remaining(
+                    self.query_handle,
+                    &self.columns,
+                    self.statement_type,
+                    total_count,
+                    &mut all_rows,
+                )
+                .await?;
         }
 
         Ok(QueryResult {
@@ -934,10 +925,7 @@ mod tests {
     fn test_query_result_into_iter() {
         let qr = QueryResult {
             columns: vec![],
-            rows: vec![
-                vec![Value::Int(1)],
-                vec![Value::Int(2)],
-            ],
+            rows: vec![vec![Value::Int(1)], vec![Value::Int(2)]],
             total_count: 2,
         };
 

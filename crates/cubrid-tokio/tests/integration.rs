@@ -129,9 +129,7 @@ async fn test_async_transaction_commit() {
         .expect("query");
     assert_eq!(result.len(), 1);
 
-    let _ = client
-        .execute(&format!("DROP TABLE {table}"), &[])
-        .await;
+    let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
 }
 
@@ -182,9 +180,7 @@ async fn test_async_transaction_rollback() {
         other => panic!("expected numeric 1, got: {other:?}"),
     }
 
-    let _ = client
-        .execute(&format!("DROP TABLE {table}"), &[])
-        .await;
+    let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
 }
 
@@ -218,9 +214,7 @@ async fn test_async_null_handling() {
         .expect("query");
     assert!(matches!(&result.rows[0][0], Value::Null));
 
-    let _ = client
-        .execute(&format!("DROP TABLE {table}"), &[])
-        .await;
+    let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
 }
 
@@ -257,9 +251,7 @@ async fn test_async_large_result_set() {
         .expect("query");
     assert_eq!(result.len(), 150);
 
-    let _ = client
-        .execute(&format!("DROP TABLE {table}"), &[])
-        .await;
+    let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
 }
 
@@ -313,9 +305,7 @@ async fn test_async_last_insert_id() {
     let last_id = client.last_insert_id().await.expect("last_insert_id");
     assert!(!last_id.is_empty());
 
-    let _ = client
-        .execute(&format!("DROP TABLE {table}"), &[])
-        .await;
+    let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
 }
 
@@ -331,7 +321,10 @@ async fn test_async_connect_invalid_dsn() {
 async fn test_async_double_close() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     client.close().await.expect("first close");
-    client.close().await.expect("second close should be idempotent");
+    client
+        .close()
+        .await
+        .expect("second close should be idempotent");
 }
 
 #[tokio::test]
@@ -841,7 +834,10 @@ async fn test_async_auto_commit_toggle() {
 async fn test_async_proto_version() {
     let client = Client::connect(&test_dsn()).await.expect("connect");
     let version = client.proto_version();
-    assert!(version >= 0, "proto version should be non-negative: {version}");
+    assert!(
+        version >= 0,
+        "proto version should be non-negative: {version}"
+    );
 }
 
 // ─── Prepared Statement Tests ───────────────────────────────────────────────
@@ -966,7 +962,10 @@ async fn test_async_prepared_statement_execute_no_params() {
         .prepare(&format!("INSERT INTO {table} (val) VALUES (99)"))
         .await
         .expect("prepare");
-    let affected = stmt.execute(&mut client, &[]).await.expect("exec no params");
+    let affected = stmt
+        .execute(&mut client, &[])
+        .await
+        .expect("exec no params");
     assert_eq!(affected, 1);
     stmt.close(&mut client).await.expect("close stmt");
 
@@ -1013,7 +1012,10 @@ async fn test_async_prepared_statement_query_no_params() {
         .prepare(&format!("SELECT id, name FROM {table} ORDER BY id"))
         .await
         .expect("prepare");
-    let result = stmt.query_with(&mut client, &[]).await.expect("query no params");
+    let result = stmt
+        .query_with(&mut client, &[])
+        .await
+        .expect("query no params");
     assert_eq!(result.len(), 3);
     stmt.close(&mut client).await.expect("close stmt");
 
@@ -1071,8 +1073,15 @@ async fn test_async_prepared_statement_large_result_fetch() {
         .prepare(&format!("SELECT id, val FROM {table} ORDER BY id"))
         .await
         .expect("prepare");
-    let result = stmt.query_with(&mut client, &[]).await.expect("query large");
-    assert_eq!(result.len(), 200, "should fetch all 200 rows via prepared stmt");
+    let result = stmt
+        .query_with(&mut client, &[])
+        .await
+        .expect("query large");
+    assert_eq!(
+        result.len(),
+        200,
+        "should fetch all 200 rows via prepared stmt"
+    );
     stmt.close(&mut client).await.expect("close stmt");
 
     let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
@@ -1084,7 +1093,9 @@ async fn test_async_statement_close_already_closed() {
     let table = test_table("async_stmt_close_idem");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
-    let _ = client.execute(&format!("DROP TABLE IF EXISTS {table}"), &[]).await;
+    let _ = client
+        .execute(&format!("DROP TABLE IF EXISTS {table}"), &[])
+        .await;
     client
         .execute(
             &format!("CREATE TABLE {table} (id INT AUTO_INCREMENT PRIMARY KEY, val INT)"),
@@ -1099,7 +1110,9 @@ async fn test_async_statement_close_already_closed() {
         .expect("prepare");
     stmt.close(&mut client).await.expect("first close");
     // Second close should be a no-op
-    stmt.close(&mut client).await.expect("second close should be ok");
+    stmt.close(&mut client)
+        .await
+        .expect("second close should be ok");
 
     let _ = client.execute(&format!("DROP TABLE {table}"), &[]).await;
     client.close().await.expect("close");
@@ -1110,7 +1123,9 @@ async fn test_async_last_insert_id_with_value() {
     let table = test_table("async_last_id_val");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
-    let _ = client.execute(&format!("DROP TABLE IF EXISTS {table}"), &[]).await;
+    let _ = client
+        .execute(&format!("DROP TABLE IF EXISTS {table}"), &[])
+        .await;
     client
         .execute(
             &format!("CREATE TABLE {table} (id INT AUTO_INCREMENT PRIMARY KEY, val VARCHAR(50))"),

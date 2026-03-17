@@ -571,7 +571,9 @@ fn test_prepared_statement_execute() {
 
     // Execute multiple times with different params
     for i in 1..=5 {
-        let affected = stmt.execute(&mut client, &[Value::Int(i * 10)]).expect("exec");
+        let affected = stmt
+            .execute(&mut client, &[Value::Int(i * 10)])
+            .expect("exec");
         assert_eq!(affected, 1);
     }
 
@@ -650,9 +652,7 @@ fn test_select_expression() {
 fn test_select_multiple_expressions() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 
-    let result = client
-        .query("SELECT 1, 'hello', 3.14", &[])
-        .expect("query");
+    let result = client.query("SELECT 1, 'hello', 3.14", &[]).expect("query");
     assert_eq!(result.len(), 1);
     assert_eq!(result.rows[0].len(), 3);
 
@@ -857,7 +857,10 @@ fn test_last_insert_id() {
 fn test_proto_version() {
     let client = Client::connect(&test_dsn()).expect("connect");
     let version = client.proto_version();
-    assert!(version >= 0, "proto version should be non-negative: {version}");
+    assert!(
+        version >= 0,
+        "proto version should be non-negative: {version}"
+    );
 }
 
 // ─── Auto-commit Mode ───────────────────────────────────────────────────────
@@ -955,9 +958,7 @@ fn test_prepared_statement_query_no_params() {
 fn test_prepared_statement_query_error() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 
-    let mut stmt = client
-        .prepare("SELECT 1")
-        .expect("prepare");
+    let mut stmt = client.prepare("SELECT 1").expect("prepare");
 
     // Close the statement first, then try to query_with
     stmt.close(&mut client).expect("close stmt");
@@ -965,9 +966,7 @@ fn test_prepared_statement_query_error() {
     assert!(result.is_err(), "query_with after close should fail");
 
     // Also test Statement::query() returns error
-    let mut stmt2 = client
-        .prepare("SELECT 1")
-        .expect("prepare 2");
+    let mut stmt2 = client.prepare("SELECT 1").expect("prepare 2");
     let result2 = stmt2.query(&[]);
     assert!(result2.is_err(), "Statement::query should return error");
     stmt2.close(&mut client).expect("close stmt2");
@@ -1003,7 +1002,11 @@ fn test_prepared_statement_large_result_fetch() {
         .prepare(&format!("SELECT id, val FROM {table} ORDER BY id"))
         .expect("prepare");
     let result = stmt.query_with(&mut client, &[]).expect("query large");
-    assert_eq!(result.len(), 200, "should fetch all 200 rows via prepared stmt");
+    assert_eq!(
+        result.len(),
+        200,
+        "should fetch all 200 rows via prepared stmt"
+    );
     stmt.close(&mut client).expect("close stmt");
 
     let _ = client.execute(&format!("DROP TABLE {table}"), &[]);
@@ -1013,7 +1016,9 @@ fn test_prepared_statement_large_result_fetch() {
 #[test]
 fn test_into_iter_for_query_result() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
-    let result = client.query("SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3", &[]).expect("query");
+    let result = client
+        .query("SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3", &[])
+        .expect("query");
     let mut count = 0;
     for row in &result {
         assert!(!row.is_empty());
@@ -1022,7 +1027,9 @@ fn test_into_iter_for_query_result() {
     assert_eq!(count, 3);
 
     // Test owned IntoIterator
-    let result2 = client.query("SELECT 1 UNION ALL SELECT 2", &[]).expect("query2");
+    let result2 = client
+        .query("SELECT 1 UNION ALL SELECT 2", &[])
+        .expect("query2");
     let rows: Vec<Vec<Value>> = result2.into_iter().collect();
     assert_eq!(rows.len(), 2);
 

@@ -245,9 +245,8 @@ mod tests {
 
     #[test]
     fn test_parse_multiple_params() {
-        let dsn =
-            Dsn::parse("cubrid://dba:@localhost:33000/demodb?autocommit=false&timeout=120")
-                .unwrap();
+        let dsn = Dsn::parse("cubrid://dba:@localhost:33000/demodb?autocommit=false&timeout=120")
+            .unwrap();
         assert!(!dsn.auto_commit);
         assert_eq!(dsn.timeout, Duration::from_secs(120));
     }

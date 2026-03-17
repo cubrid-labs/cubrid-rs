@@ -145,11 +145,7 @@ impl Client {
 
         // Step 3: If redirect_port > 0, reconnect to the CAS port
         if redirect_port > 0 {
-            conn = Connection::connect_to(
-                &dsn.host,
-                redirect_port as u16,
-                dsn.timeout,
-            )?;
+            conn = Connection::connect_to(&dsn.host, redirect_port as u16, dsn.timeout)?;
         }
 
         // Step 4: Send OpenDatabase (628 bytes, unframed)
@@ -194,8 +190,7 @@ impl Client {
         conn.send_framed(&req)?;
         let resp = conn.recv_framed()?;
 
-        let (result, new_cas_info) =
-            response::parse_prepare_and_execute(&resp, proto_version)?;
+        let (result, new_cas_info) = response::parse_prepare_and_execute(&resp, proto_version)?;
         conn.set_cas_info(new_cas_info);
         // Close the server-side query handle immediately
         if result.query_handle > 0 {
@@ -237,8 +232,7 @@ impl Client {
         conn.send_framed(&req)?;
         let resp = conn.recv_framed()?;
 
-        let (result, new_cas_info) =
-            response::parse_prepare_and_execute(&resp, proto_version)?;
+        let (result, new_cas_info) = response::parse_prepare_and_execute(&resp, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let query_handle = result.query_handle;
@@ -430,8 +424,7 @@ impl Client {
             conn.send_framed(&req)?;
             let resp = conn.recv_framed()?;
 
-            let (fetch_result, new_cas_info) =
-                response::parse_fetch(&resp, columns, stmt_type)?;
+            let (fetch_result, new_cas_info) = response::parse_fetch(&resp, columns, stmt_type)?;
             conn.set_cas_info(new_cas_info);
 
             if fetch_result.tuple_count == 0 {
@@ -489,12 +482,8 @@ impl Statement {
         conn.send_framed(&req)?;
         let resp = conn.recv_framed()?;
 
-        let (result, new_cas_info) = response::parse_execute(
-            &resp,
-            &self.columns,
-            self.statement_type,
-            proto_version,
-        )?;
+        let (result, new_cas_info) =
+            response::parse_execute(&resp, &self.columns, self.statement_type, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let mut affected: u64 = 0;
@@ -543,12 +532,8 @@ impl Statement {
         conn.send_framed(&req)?;
         let resp = conn.recv_framed()?;
 
-        let (result, new_cas_info) = response::parse_execute(
-            &resp,
-            &self.columns,
-            self.statement_type,
-            proto_version,
-        )?;
+        let (result, new_cas_info) =
+            response::parse_execute(&resp, &self.columns, self.statement_type, proto_version)?;
         conn.set_cas_info(new_cas_info);
 
         let total_count = result.total_tuple_count;
@@ -982,7 +967,7 @@ mod tests {
         let mut data = Vec::new();
         data.extend_from_slice(&[0x01, 0x02, 0x03, 0x04]); // cas_info
         data.extend_from_slice(&(-1i32).to_be_bytes()); // response_code = -1 (error)
-        // Error format: i32(indicator) + i32(code) + string(message)
+                                                        // Error format: i32(indicator) + i32(code) + string(message)
         data.extend_from_slice(&(-1i32).to_be_bytes()); // indicator
         data.extend_from_slice(&(-1001i32).to_be_bytes()); // error code
         data.extend_from_slice(b"test error\0"); // error message

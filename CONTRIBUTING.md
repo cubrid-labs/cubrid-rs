@@ -16,7 +16,7 @@ Thank you for your interest in contributing. This guide explains the development
 
 ### Prerequisites
 
-- Rust 1.70 or later
+- Rust 1.75 or later
 - Git
 - Docker (for integration tests)
 

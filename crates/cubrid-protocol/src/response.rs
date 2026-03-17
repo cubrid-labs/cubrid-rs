@@ -337,9 +337,7 @@ pub fn parse_prepare_and_execute(
 }
 
 /// Parse a `Prepare` (FC=2) response.
-pub fn parse_prepare(
-    data: &[u8],
-) -> Result<(PrepareResult, [u8; SIZE_CAS_INFO]), ProtocolError> {
+pub fn parse_prepare(data: &[u8]) -> Result<(PrepareResult, [u8; SIZE_CAS_INFO]), ProtocolError> {
     let mut reader = PacketReader::new(data);
     let cas_info = reader.parse_cas_info()?;
 
@@ -553,7 +551,7 @@ mod tests {
         // legacy type with 0x80 flag — actual type follows
         meta_bytes.push(0x80 | 0x01); // flag set, junk bits
         meta_bytes.push(DataType::String as u8); // actual type
-        // scale
+                                                 // scale
         meta_bytes.extend_from_slice(&0i16.to_be_bytes());
         // precision
         meta_bytes.extend_from_slice(&255i32.to_be_bytes());
@@ -790,8 +788,7 @@ mod tests {
         data.extend_from_slice(&42i32.to_be_bytes());
 
         let mut reader = PacketReader::new(&data);
-        let rows =
-            parse_row_data(&mut reader, 1, &[col], StatementType::Select).unwrap();
+        let rows = parse_row_data(&mut reader, 1, &[col], StatementType::Select).unwrap();
         assert_eq!(rows.len(), 1);
         assert_eq!(rows[0].len(), 1);
         assert_eq!(rows[0][0], Value::Int(42));
@@ -823,8 +820,7 @@ mod tests {
         data.extend_from_slice(&0i32.to_be_bytes());
 
         let mut reader = PacketReader::new(&data);
-        let rows =
-            parse_row_data(&mut reader, 1, &[col], StatementType::Select).unwrap();
+        let rows = parse_row_data(&mut reader, 1, &[col], StatementType::Select).unwrap();
         assert_eq!(rows[0][0], Value::Null);
     }
 
@@ -874,8 +870,7 @@ mod tests {
         data.extend_from_slice(b"hello\0");
 
         let mut reader = PacketReader::new(&data);
-        let rows =
-            parse_row_data(&mut reader, 1, &cols, StatementType::Select).unwrap();
+        let rows = parse_row_data(&mut reader, 1, &cols, StatementType::Select).unwrap();
         assert_eq!(rows.len(), 1);
         assert_eq!(rows[0][0], Value::Int(42));
         assert_eq!(rows[0][1], Value::String("hello".to_string()));
@@ -947,13 +942,7 @@ mod tests {
         // shard_id (proto_version > 4)
         data.extend_from_slice(&0i32.to_be_bytes());
 
-        let (result, cas_info) = parse_execute(
-            &data,
-            &[],
-            StatementType::Insert,
-            7,
-        )
-        .unwrap();
+        let (result, cas_info) = parse_execute(&data, &[], StatementType::Insert, 7).unwrap();
         assert_eq!(cas_info, [0xAA, 0xBB, 0xCC, 0xDD]);
         assert_eq!(result.total_tuple_count, 1);
         assert_eq!(result.result_infos.len(), 1);
@@ -991,8 +980,7 @@ mod tests {
         data.extend_from_slice(&4i32.to_be_bytes()); // col size
         data.extend_from_slice(&99i32.to_be_bytes()); // value
 
-        let (result, _) =
-            parse_fetch(&data, &[col], StatementType::Select).unwrap();
+        let (result, _) = parse_fetch(&data, &[col], StatementType::Select).unwrap();
         assert_eq!(result.tuple_count, 1);
         assert_eq!(result.rows.len(), 1);
         assert_eq!(result.rows[0][0], Value::Int(99));
@@ -1024,8 +1012,7 @@ mod tests {
         data.extend_from_slice(&(-500i32).to_be_bytes());
         data.extend_from_slice(b"fetch error\0");
 
-        let err =
-            parse_fetch(&data, &[], StatementType::Select).unwrap_err();
+        let err = parse_fetch(&data, &[], StatementType::Select).unwrap_err();
         match err {
             ProtocolError::ServerError { code, message } => {
                 assert_eq!(code, -500);
@@ -1234,13 +1221,7 @@ mod tests {
         data.extend_from_slice(&(val.len() as i32).to_be_bytes());
         data.extend_from_slice(val);
 
-        let (result, _) = parse_execute(
-            &data,
-            &[col],
-            StatementType::Select,
-            1,
-        )
-        .unwrap();
+        let (result, _) = parse_execute(&data, &[col], StatementType::Select, 1).unwrap();
         assert_eq!(result.total_tuple_count, 1);
         assert_eq!(result.tuple_count, 1);
         assert_eq!(result.rows.len(), 1);

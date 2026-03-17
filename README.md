@@ -4,7 +4,7 @@
 
 <!-- BADGES:START -->
 [![crates.io](https://img.shields.io/crates/v/cubrid-client.svg)](https://crates.io/crates/cubrid-client)
-[![Rust 1.70+](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
+[![Rust 1.75+](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![CI](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-95.11%25-brightgreen.svg)](https://github.com/cubrid-labs/cubrid-rs)
 [![license](https://img.shields.io/github/license/cubrid-labs/cubrid-rs)](https://github.com/cubrid-labs/cubrid-rs/blob/main/LICENSE)
@@ -49,7 +49,7 @@ cargo add cubrid-tokio
 cargo add cubrid-pool
 ```
 
-**Requirements**: Rust 1.70+
+**Requirements**: Rust 1.75+
 
 ## Quick Start — Sync Client
 
@@ -200,7 +200,7 @@ Use the DSN format: `cubrid://[user[:password]]@host[:port]/database`.
 
 ### What Rust version is required?
 
-Rust 1.70 or later.
+Rust 1.75 or later.
 
 ### Does cubrid-rs require unsafe code?
 

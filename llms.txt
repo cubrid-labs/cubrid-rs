@@ -11,7 +11,7 @@ Key facts:
 - Connection pool: `cubrid-pool` crate
 - Protocol: `cubrid-protocol` crate (CAS wire protocol, I/O-agnostic)
 - Features: pure Rust, #![deny(unsafe_code)], no FFI, no C dependencies
-- Minimum Rust version: 1.70
+- Minimum Rust version: 1.75
 - Status: v0.1.0 (scaffold - protocol implementation in progress)
 
 ## Docs

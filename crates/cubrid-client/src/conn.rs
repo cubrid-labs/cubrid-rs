@@ -31,20 +31,16 @@ impl Connection {
             TcpStream::connect(&addr)?
         } else {
             TcpStream::connect_timeout(
-                &addr
-                    .parse::<std::net::SocketAddr>()
-                    .or_else(|_| {
-                        // Resolve hostname
-                        use std::net::ToSocketAddrs;
-                        addr.to_socket_addrs()?
-                            .next()
-                            .ok_or_else(|| {
-                                std::io::Error::new(
-                                    std::io::ErrorKind::AddrNotAvailable,
-                                    format!("cannot resolve: {addr}"),
-                                )
-                            })
-                    })?,
+                &addr.parse::<std::net::SocketAddr>().or_else(|_| {
+                    // Resolve hostname
+                    use std::net::ToSocketAddrs;
+                    addr.to_socket_addrs()?.next().ok_or_else(|| {
+                        std::io::Error::new(
+                            std::io::ErrorKind::AddrNotAvailable,
+                            format!("cannot resolve: {addr}"),
+                        )
+                    })
+                })?,
                 timeout,
             )?
         };

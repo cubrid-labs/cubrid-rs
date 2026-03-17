@@ -393,9 +393,7 @@ impl<'a> PacketReader<'a> {
     }
 
     /// Parse a TIMESTAMP value: 6 × i16 (year, month, day, hour, minute, second).
-    pub fn parse_timestamp(
-        &mut self,
-    ) -> Result<(i16, i16, i16, i16, i16, i16), ProtocolError> {
+    pub fn parse_timestamp(&mut self) -> Result<(i16, i16, i16, i16, i16, i16), ProtocolError> {
         let year = self.parse_short()?;
         let month = self.parse_short()?;
         let day = self.parse_short()?;
@@ -406,9 +404,7 @@ impl<'a> PacketReader<'a> {
     }
 
     /// Parse a DATETIME value: 7 × i16 (year, month, day, hour, minute, second, ms).
-    pub fn parse_datetime(
-        &mut self,
-    ) -> Result<(i16, i16, i16, i16, i16, i16, i16), ProtocolError> {
+    pub fn parse_datetime(&mut self) -> Result<(i16, i16, i16, i16, i16, i16, i16), ProtocolError> {
         let year = self.parse_short()?;
         let month = self.parse_short()?;
         let day = self.parse_short()?;

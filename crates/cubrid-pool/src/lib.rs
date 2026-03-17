@@ -596,8 +596,7 @@ mod tests {
     #[test]
     fn test_sync_pool_connect_failure() {
         // min_idle=0 so no connections made at construction
-        let config = PoolConfig::new("cubrid://dba:@192.0.2.1:33000/testdb")
-            .min_idle(0);
+        let config = PoolConfig::new("cubrid://dba:@192.0.2.1:33000/testdb").min_idle(0);
         let pool = SyncPool::new(config).unwrap();
 
         let status = pool.status();
@@ -616,8 +615,7 @@ mod tests {
 
     #[test]
     fn test_sync_pool_closed_get_fails() {
-        let config = PoolConfig::new("cubrid://dba:@localhost:33000/testdb")
-            .min_idle(0);
+        let config = PoolConfig::new("cubrid://dba:@localhost:33000/testdb").min_idle(0);
         let pool = SyncPool::new(config).unwrap();
         pool.close();
 
@@ -634,8 +632,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_async_pool_connect_failure() {
-        let config = PoolConfig::new("cubrid://dba:@192.0.2.1:33000/testdb")
-            .min_idle(0);
+        let config = PoolConfig::new("cubrid://dba:@192.0.2.1:33000/testdb").min_idle(0);
         let pool = AsyncPool::new(config).await.unwrap();
 
         let status = pool.status().await;
@@ -653,8 +650,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_async_pool_closed_get_fails() {
-        let config = PoolConfig::new("cubrid://dba:@localhost:33000/testdb")
-            .min_idle(0);
+        let config = PoolConfig::new("cubrid://dba:@localhost:33000/testdb").min_idle(0);
         let pool = AsyncPool::new(config).await.unwrap();
         pool.close().await;
 

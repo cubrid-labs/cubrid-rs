@@ -109,8 +109,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_connect_invalid_host() {
-        let result =
-            AsyncConnection::connect("192.0.2.1", 33000, Duration::from_millis(100)).await;
+        let result = AsyncConnection::connect("192.0.2.1", 33000, Duration::from_millis(100)).await;
         assert!(result.is_err());
     }
 

@@ -30,11 +30,7 @@ pub fn write_prepare_and_execute(
 }
 
 /// Build a Prepare request (FC=2).
-pub fn write_prepare(
-    sql: &str,
-    auto_commit: bool,
-    cas_info: &[u8; SIZE_CAS_INFO],
-) -> Vec<u8> {
+pub fn write_prepare(sql: &str, auto_commit: bool, cas_info: &[u8; SIZE_CAS_INFO]) -> Vec<u8> {
     let mut w = PacketWriter::with_capacity(128);
     w.write_byte(FunctionCode::Prepare as u8);
     w.write_null_term_string(sql);
@@ -96,10 +92,7 @@ pub fn write_fetch(
 }
 
 /// Build a CloseReqHandle request (FC=6).
-pub fn write_close_req_handle(
-    query_handle: i32,
-    cas_info: &[u8; SIZE_CAS_INFO],
-) -> Vec<u8> {
+pub fn write_close_req_handle(query_handle: i32, cas_info: &[u8; SIZE_CAS_INFO]) -> Vec<u8> {
     let mut w = PacketWriter::new();
     w.write_byte(FunctionCode::CloseReqHandle as u8);
     w.add_int(query_handle);
