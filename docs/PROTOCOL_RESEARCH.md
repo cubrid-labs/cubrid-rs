@@ -148,10 +148,10 @@ Bytes 24+:    Session ID (remaining bytes)
 
 Every CAS request and response after the handshake follows a consistent frame format:
 
-```text
-┌─────────────────┬─────────────┬──────────────────────┐
-│ DATA_LENGTH (4) │ CAS_INFO (4)│ PAYLOAD (variable)   │
-└─────────────────┴─────────────┴──────────────────────┘
+```mermaid
+flowchart LR
+    A[DATA_LENGTH (4)] --> B[CAS_INFO (4)]
+    B --> C[PAYLOAD (variable)]
 ```
 
 - **DATA_LENGTH**: 4-byte big-endian unsigned integer. Length of the PAYLOAD only (does not include the 8-byte header).

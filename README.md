@@ -149,26 +149,34 @@ cubrid://[user[:password]]@host[:port]/database
 
 ## Architecture
 
-```text
-cubrid-rs/                          4 crates, 1 workspace
-├── crates/
-│   ├── cubrid-protocol/            Pure protocol codec (no I/O)
-│   │   ├── constants.rs            CAS function codes, type codes, flags
-│   │   ├── handshake.rs            Broker handshake + OpenDatabase
-│   │   ├── codec.rs                PacketWriter / PacketReader
-│   │   ├── request.rs              Request frame builders
-│   │   ├── response.rs             Response parsers
-│   │   └── value.rs                Value enum + type conversions
-│   ├── cubrid-client/              Sync TCP client
-│   ├── cubrid-tokio/               Async tokio client
-│   └── cubrid-pool/                Async connection pool
-├── docs/
-│   ├── PROTOCOL_RESEARCH.md        ★ Reverse engineering narrative
-│   ├── PRD.md                      Product requirements
-│   ├── TDD.md                      Technical design decisions
-│   ├── ARCHITECTURE.md             Workspace + dependency graph
-│   └── ROADMAP.md                  Release plan
-└── examples/
+```mermaid
+flowchart TD
+    A[cubrid-rs/\n4 crates, 1 workspace]
+    A --> B[crates/]
+    B --> C[cubrid-protocol/\nPure protocol codec (no I/O)]
+    C --> C1[constants.rs\nCAS function codes, type codes, flags]
+    C --> C2[handshake.rs\nBroker handshake + OpenDatabase]
+    C --> C3[codec.rs\nPacketWriter / PacketReader]
+    C --> C4[request.rs\nRequest frame builders]
+    C --> C5[response.rs\nResponse parsers]
+    C --> C6[value.rs\nValue enum + type conversions]
+    B --> D[cubrid-client/\nSync TCP client]
+    B --> E[cubrid-tokio/\nAsync tokio client]
+    B --> F[cubrid-pool/\nAsync connection pool]
+    A --> G[docs/]
+    G --> G1[PROTOCOL_RESEARCH.md\nReverse engineering narrative]
+    G --> G2[PRD.md\nProduct requirements]
+    G --> G3[TDD.md\nTechnical design decisions]
+    G --> G4[ARCHITECTURE.md\nWorkspace + dependency graph]
+    G --> G5[ROADMAP.md\nRelease plan]
+    A --> H[examples/]
+```
+
+```mermaid
+flowchart LR
+    cubrid_pool[cubrid-pool] --> cubrid_client[cubrid-client]
+    cubrid_client --> cubrid_protocol[cubrid-protocol]
+    cubrid_tokio[cubrid-tokio] --> cubrid_protocol
 ```
 
 ## Protocol Notes
@@ -181,6 +189,13 @@ The CAS connection flow, decoded by reverse engineering:
 4. **Function codes** — 11 core FCs implemented: PREPARE, EXECUTE, FETCH, END_TRAN, etc.
 
 See [PROTOCOL_RESEARCH.md](docs/PROTOCOL_RESEARCH.md) for the complete story.
+
+```mermaid
+flowchart LR
+    A[Handshake] --> B[OpenDatabase]
+    B --> C[Execute]
+    C --> D[CloseDatabase]
+```
 
 ## Documentation
 

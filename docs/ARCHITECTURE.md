@@ -2,28 +2,31 @@
 
 ## Workspace Layout
 
-```text
-cubrid-rs/
-├── crates/
-│   ├── cubrid-protocol/    # Wire protocol (CAS) - no I/O
-│   │   └── src/lib.rs      # Constants, codec, packet framing, error types
-│   ├── cubrid-client/      # Sync client - std::net::TcpStream
-│   │   └── src/lib.rs      # Client, Connection, Row, Statement
-│   ├── cubrid-tokio/       # Async client - tokio::net::TcpStream
-│   │   └── src/lib.rs      # AsyncClient, AsyncConnection
-│   └── cubrid-pool/        # Connection pooling
-│       └── src/lib.rs      # Pool, PoolConfig
-├── examples/               # Runnable examples
-├── tests/                  # Integration tests (need Docker CUBRID)
-└── docs/                   # Documentation
+```mermaid
+flowchart TD
+    A[cubrid-rs/]
+    A --> B[crates/]
+    B --> C[cubrid-protocol/\nWire protocol (CAS) - no I/O]
+    C --> C1[src/lib.rs\nConstants, codec, packet framing, error types]
+    B --> D[cubrid-client/\nSync client - std::net::TcpStream]
+    D --> D1[src/lib.rs\nClient, Connection, Row, Statement]
+    B --> E[cubrid-tokio/\nAsync client - tokio::net::TcpStream]
+    E --> E1[src/lib.rs\nAsyncClient, AsyncConnection]
+    B --> F[cubrid-pool/\nConnection pooling]
+    F --> F1[src/lib.rs\nPool, PoolConfig]
+    A --> G[examples/\nRunnable examples]
+    A --> H[tests/\nIntegration tests (need Docker CUBRID)]
+    A --> I[docs/\nDocumentation]
 ```
 
 ## Dependency Graph
 
-```text
-cubrid-pool ──→ cubrid-client ──→ cubrid-protocol
-     │
-     └────────→ cubrid-tokio ───→ cubrid-protocol
+```mermaid
+flowchart LR
+    cubrid_pool[cubrid-pool] --> cubrid_client[cubrid-client]
+    cubrid_client --> cubrid_protocol[cubrid-protocol]
+    cubrid_pool --> cubrid_tokio[cubrid-tokio]
+    cubrid_tokio --> cubrid_protocol
 ```
 
 ## Design Principles

@@ -31,16 +31,17 @@ Rust users expect a crate-native, type-safe, modern API that works with both syn
 
 ### 2.1 Workspace Layout
 
-```text
-cubrid-rs/
-├── crates/
-│   ├── cubrid-protocol/
-│   ├── cubrid-client/
-│   ├── cubrid-tokio/
-│   └── cubrid-pool/
-├── docs/
-├── examples/
-└── tests/
+```mermaid
+flowchart TD
+    A[cubrid-rs/]
+    A --> B[crates/]
+    B --> C[cubrid-protocol/]
+    B --> D[cubrid-client/]
+    B --> E[cubrid-tokio/]
+    B --> F[cubrid-pool/]
+    A --> G[docs/]
+    A --> H[examples/]
+    A --> I[tests/]
 ```
 
 ### 2.2 Dependency Matrix
