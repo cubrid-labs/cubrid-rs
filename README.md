@@ -2,6 +2,7 @@
 
 **Native Rust database driver for CUBRID** — built by reverse-engineering the CAS wire protocol. Pure Rust, no FFI, sync + async.
 
+<!-- BADGES:START -->
 [![crates.io](https://img.shields.io/crates/v/cubrid-client.svg)](https://crates.io/crates/cubrid-client)
 [![Rust 1.70+](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
 [![CI](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml)
@@ -234,6 +235,7 @@ Benchmark tracking and cross-driver comparisons are maintained in [cubrid-benchm
 | [cubrid-client](https://github.com/cubrid-labs/cubrid-client) | TypeScript CAS client | TypeScript |
 | [drizzle-cubrid](https://github.com/cubrid-labs/drizzle-cubrid) | Drizzle ORM dialect | TypeScript |
 | [cubrid-cookbook](https://github.com/cubrid-labs/cubrid-cookbook) | Practical examples across ecosystems | Multi |
+| [cubrid-benchmark](https://github.com/cubrid-labs/cubrid-benchmark) | Multi-language benchmark suite | Multi |
 
 ## License
 
