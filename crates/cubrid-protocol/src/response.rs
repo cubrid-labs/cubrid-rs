@@ -618,10 +618,10 @@ mod tests {
 
     #[test]
     fn test_read_value_double() {
-        let data = 3.14f64.to_be_bytes();
+        let data = std::f64::consts::PI.to_be_bytes();
         let mut reader = PacketReader::new(&data);
         let v = read_value(&mut reader, DataType::Double, 8).unwrap();
-        assert_eq!(v, Value::Double(3.14));
+        assert_eq!(v, Value::Double(std::f64::consts::PI));
     }
 
     #[test]

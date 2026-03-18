@@ -782,9 +782,19 @@ mod tests {
         let sql = "INSERT INTO t (a, b, c) VALUES (?, ?, ?)";
         let result = interpolate_params(
             sql,
-            &[Value::Int(1), Value::from("two"), Value::Double(3.14)],
+            &[
+                Value::Int(1),
+                Value::from("two"),
+                Value::Double(std::f64::consts::PI),
+            ],
         );
-        assert_eq!(result, "INSERT INTO t (a, b, c) VALUES (1, 'two', 3.14)");
+        assert_eq!(
+            result,
+            format!(
+                "INSERT INTO t (a, b, c) VALUES (1, 'two', {})",
+                std::f64::consts::PI
+            )
+        );
     }
 
     #[test]

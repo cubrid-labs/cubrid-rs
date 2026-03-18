@@ -276,15 +276,15 @@ mod tests {
 
     #[test]
     fn test_float() {
-        let v = Value::Float(3.14);
+        let v = Value::Float(std::f32::consts::PI);
         assert!(v.as_f64().is_some());
-        assert!((v.as_f64().unwrap() - 3.14).abs() < 0.01);
+        assert!((v.as_f64().unwrap() - std::f64::consts::PI).abs() < 0.01);
     }
 
     #[test]
     fn test_double() {
-        let v = Value::Double(3.14159);
-        assert!((v.as_f64().unwrap() - 3.14159).abs() < 1e-10);
+        let v = Value::Double(std::f64::consts::PI);
+        assert!((v.as_f64().unwrap() - std::f64::consts::PI).abs() < 1e-10);
     }
 
     #[test]
@@ -491,8 +491,8 @@ mod tests {
 
     #[test]
     fn test_from_f64() {
-        let v: Value = 3.14f64.into();
-        assert_eq!(v, Value::Double(3.14));
+        let v: Value = std::f64::consts::PI.into();
+        assert_eq!(v, Value::Double(std::f64::consts::PI));
     }
 
     #[test]

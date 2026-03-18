@@ -229,6 +229,8 @@ pub struct PacketReader<'a> {
     pos: usize,
 }
 
+type DateTimeParts = (i16, i16, i16, i16, i16, i16, i16);
+
 impl<'a> PacketReader<'a> {
     /// Create a new packet reader over the given data.
     pub fn new(data: &'a [u8]) -> Self {
@@ -404,7 +406,7 @@ impl<'a> PacketReader<'a> {
     }
 
     /// Parse a DATETIME value: 7 × i16 (year, month, day, hour, minute, second, ms).
-    pub fn parse_datetime(&mut self) -> Result<(i16, i16, i16, i16, i16, i16, i16), ProtocolError> {
+    pub fn parse_datetime(&mut self) -> Result<DateTimeParts, ProtocolError> {
         let year = self.parse_short()?;
         let month = self.parse_short()?;
         let day = self.parse_short()?;
@@ -493,7 +495,7 @@ mod tests {
     fn test_writer_write_fixed_string_truncate() {
         let mut w = PacketWriter::new();
         w.write_fixed_string("abcdef", 3);
-        assert_eq!(w.as_bytes(), &[b'a', b'b', b'c']);
+        assert_eq!(w.as_bytes(), b"abc");
     }
 
     #[test]
@@ -610,18 +612,18 @@ mod tests {
 
     #[test]
     fn test_reader_parse_float() {
-        let data = 3.14f32.to_be_bytes();
+        let data = std::f32::consts::PI.to_be_bytes();
         let mut r = PacketReader::new(&data);
         let v = r.parse_float().unwrap();
-        assert!((v - 3.14).abs() < 1e-5);
+        assert!((v - std::f32::consts::PI).abs() < 1e-5);
     }
 
     #[test]
     fn test_reader_parse_double() {
-        let data = 3.14159f64.to_be_bytes();
+        let data = std::f64::consts::PI.to_be_bytes();
         let mut r = PacketReader::new(&data);
         let v = r.parse_double().unwrap();
-        assert!((v - 3.14159).abs() < 1e-10);
+        assert!((v - std::f64::consts::PI).abs() < 1e-10);
     }
 
     #[test]

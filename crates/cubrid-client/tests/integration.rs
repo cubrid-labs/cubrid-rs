@@ -289,8 +289,8 @@ fn test_numeric_types() {
                 Value::Short(32000),
                 Value::Int(2_000_000),
                 Value::Long(9_000_000_000),
-                Value::Float(3.14),
-                Value::Double(2.718281828),
+                Value::Float(std::f32::consts::PI),
+                Value::Double(std::f64::consts::E),
             ],
         )
         .expect("insert");

@@ -342,11 +342,11 @@ mod tests {
 
     #[test]
     fn test_encode_bind_double() {
-        let data = encode_bind_params(&[Value::Double(3.14)]);
+        let data = encode_bind_params(&[Value::Double(std::f64::consts::PI)]);
         let mut expected = Vec::new();
         expected.extend_from_slice(&9i32.to_be_bytes());
         expected.push(DataType::Double as u8);
-        expected.extend_from_slice(&3.14f64.to_be_bytes());
+        expected.extend_from_slice(&std::f64::consts::PI.to_be_bytes());
         assert_eq!(data, expected);
     }
 
