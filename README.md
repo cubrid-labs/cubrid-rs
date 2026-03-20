@@ -253,5 +253,11 @@ Benchmark tracking and cross-driver comparisons are maintained in [cubrid-benchm
 | [cubrid-benchmark](https://github.com/cubrid-labs/cubrid-benchmark) | Multi-language benchmark suite | Multi |
 
 ## License
+## Roadmap
+
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for detailed release plans and protocol implementation progress.
+
+For the ecosystem-wide view, see the [CUBRID Labs Ecosystem Roadmap](https://github.com/cubrid-labs/.github/blob/main/ROADMAP.md) and [Project Board](https://github.com/orgs/cubrid-labs/projects/2).
+
 
 MIT
