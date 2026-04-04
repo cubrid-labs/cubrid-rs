@@ -233,24 +233,12 @@ No. The project is pure Rust. The CAS protocol was reverse-engineered and implem
 
 By cross-referencing three existing open-source client implementations (Go, TypeScript, Python) and testing against live CUBRID servers. See [PROTOCOL_RESEARCH.md](docs/PROTOCOL_RESEARCH.md).
 
-## Benchmark
-
-Benchmark tracking and cross-driver comparisons are maintained in [cubrid-benchmark](https://github.com/cubrid-labs/cubrid-benchmark).
-
 ## Ecosystem
 
-| Package | Description | Language |
-|:---|:---|:---|
-| [cubrid-rs](https://github.com/cubrid-labs/cubrid-rs) | Native Rust CUBRID workspace | Rust |
-| [sea-orm-cubrid](https://github.com/cubrid-labs/sea-orm-cubrid) | SeaORM backend for CUBRID | Rust |
-| [cubrid-go](https://github.com/cubrid-labs/cubrid-go) | database/sql driver + GORM dialector | Go |
-| [gorm-cubrid](https://github.com/cubrid-labs/gorm-cubrid) | GORM dialect for CUBRID | Go |
-| [pycubrid](https://github.com/cubrid-labs/pycubrid) | DB-API 2.0 driver | Python |
-| [sqlalchemy-cubrid](https://github.com/cubrid-labs/sqlalchemy-cubrid) | SQLAlchemy dialect | Python |
-| [cubrid-client](https://github.com/cubrid-labs/cubrid-client) | TypeScript CAS client | TypeScript |
-| [drizzle-cubrid](https://github.com/cubrid-labs/drizzle-cubrid) | Drizzle ORM dialect | TypeScript |
-| [cubrid-cookbook](https://github.com/cubrid-labs/cubrid-cookbook) | Practical examples across ecosystems | Multi |
-| [cubrid-benchmark](https://github.com/cubrid-labs/cubrid-benchmark) | Multi-language benchmark suite | Multi |
+| Package | Description |
+|:---|:---|
+| [cubrid-rs](https://github.com/cubrid-labs/cubrid-rs) | Native Rust CUBRID workspace |
+| [sea-orm-cubrid](https://github.com/cubrid-labs/sea-orm-cubrid) | SeaORM backend for CUBRID |
 
 ## License
 ## Roadmap
