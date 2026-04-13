@@ -16,7 +16,7 @@ repository = "https://github.com/cubrid-labs/cubrid-rs"
 homepage = "https://github.com/cubrid-labs/cubrid-rs"
 keywords = ["cubrid", "database", "driver", "sql"]
 categories = ["database"]
-authors = ["cubrid-labs"]
+authors = ["Gyeongjun Paik <paikend@gmail.com>", "Yeongseon Choe <yeongseon.choe@gmail.com>"]
 
 [workspace.dependencies]
 thiserror = "2"
